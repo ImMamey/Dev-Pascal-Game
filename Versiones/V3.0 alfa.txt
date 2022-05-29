@@ -1,0 +1,152 @@
+Program ProyectoHalconMilenario;
+uses
+ crt;
+ type
+  arreglo=array[1..30,1..30]of string;
+ var
+ Mapa:arreglo;
+ ContadorDeLineas:integer;
+
+
+{======================================SECCION DE MONTAR EL ARCHIVO POR PRIMERA VEZ=============================================================}
+
+Procedure GenerarMatriz (var Mapa:arreglo; Filas,Columnas:integer);  {Genera una matriz tipo string completamente vacia, preparada para llenarse}
+var
+ i,j:integer;
+BEGIN
+ For i:=1 to Filas do begin
+ {} For j:=1 to Columnas do begin
+ {} {} Mapa[i,j]:='';
+ {} end;
+ end;
+END;
+{-----------------------------------------------}
+Procedure escribir(A:string;var ContadorDeLineas:integer);
+  {Procedure encargado de revisar la linea String, pasarla a dato tipo integer y corroborar que los datos especificos cumplan las condiciones minimas}
+var
+ aux,Numero1,Numero2:string;
+ i,cont,error,x,y,suma,filas,columnas,NumEstrellas,NumDestructores:integer;
+ vero:boolean;
+Begin
+  ContadorDeLineas:=ContadorDeLineas+1; {Cada vez que se llame el proceso escribir el contador de lines aumenta en 1}
+  A:=A+' '; aux:=''; cont:=0;
+
+  For i:=1 to Length(A) do begin          {Esta seccion lee toda la linea y guarda 2 datos}
+  {} if (a[i]<>' ')then aux:=aux+a[i]
+  {} else begin                            {Cada vez que encuentre un espacio, agarra y guarda un dato distinto}
+  {} {}cont:=cont+1;
+  {} {}if (cont=1) then begin numero1:=aux; aux:=''; end;
+  {} {}if (cont=2)then  begin numero2:=aux; aux:=''; end;
+  {} end;
+  end;
+
+ val(Numero1,x,error);   val(Numero2,y,error); vero:=true; {Se guardan los valores strings anteriores en su valor numerico integer}
+
+
+ {Toda esta seccion se encarga de guardar y crear la matriz y su respectivo relleno,consta de 7 partes}
+ {''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''}
+
+{1}{MATRIZ}
+{}{----La primera linea del archivo leera el tamaño de la matriz, tambien se verificara que sea mayor a 1x1 y menor a 30x30}
+{}
+{}   If (ContadorDeLineas=1) then begin
+{}   {} Filas:=x; Columnas:=y;
+{}   {} if (x>30) or (x<1) or (y>30) or (y<1) then begin
+{}   {} {} vero:=false; writeln('La matriz debe ser mayor a [1x1] y menor o igual a [30x30]');
+{}   {} {} writeln('El programa finalizará, modifique el .txt');  {Si no cumple con los requisitos, se lanzara un mensaje de error, y un valor booleano negara la entrada de mas datos}
+{}   {} end
+{}   {} else GenerarMatriz(Mapa,Filas,Columnas);
+{}   end;
+{---}
+
+{2}{NAVE}
+{}{----La segunda linea del archivo leera la posicion de la nave, verificara que la posicion de la nave este dentro del tamaño de la matriz.}
+{}
+{}  If (contadorDeLineas=2) and (vero=true) then begin
+{}   {} if (x>filas) or (x<1) or (y>filas) or (y<1) then begin
+{}   {} {} vero:=false; writeln('La posicion de la nave debe ser mayor [1x1] y menor al tamaño de la matriz');
+{}   {} {} writeln('El programa finalizará, modifique el .txt');
+{}   {} end
+{}   {} else begin Mapa[x,u]:='H'; end;
+{}  end;
+{}
+{---}
+
+{3}{PLANETA}
+{} {----La Tercera linea del archivo leera la posicion del planeta, verificara que la posicion del planeta este Dentro del tamaño del archivo.}
+{}
+{} If (ContadorDeLineas=3) and (vero=true) then begin {Posicion del planeta}
+{}  {} if (x>filas) or (x<1) or (y>filas) or (y<1) then begin                                                     {-      Logicamente      -}
+{}  {} {} vero:=false; writeln('La posicion del planeta debe ser mayor [1x1] y menor al tamaño de la matriz');    {- correcto mas no probada}
+{}  {} {} writeln('El programa finalizará, modifique el .txt');                                                   {-                       -}
+{}  {} end
+{}  {} else begin Tx:=x; Ty:=y; Mapa[Tx,Ty];='T'; end;
+{}  end;
+{---}
+
+{4-5+} {ESTRELLAS}
+{} {--------La cuarta linea del archivo leera la cantidad de estrellas, solo se usara la X de esta linea, sin importar si hay o no un valor y}
+{} {}
+{} {} If (ContadorDeLineas=4) and (vero=true) then begin {Numero de estrellas}
+{} {}  {}  if (x>(filas*columnas)) or (x<0) then begin
+{} {}  {} {} vero:=false; writeln('La cantidad de estrellas debe ser y menor al tamaño de la matriz,y mayor o igual a 0');
+{} {}  {} {} writeln('El programa finalizará, modifique el .txt');
+{} {}  {} end
+{} {}  {} else begin NumEstrellas:=x; suma:=4+x+1; end;
+{} {}  end;
+{} {---}
+{}
+{} {-----La quinta linea en adelante leera la posicion de cada estrella}
+{}
+{} If (ContadorDelineas<suma)and (ContadorDelineas>4) and (vero=true) then begin    {Posicion de Cada Estrella}
+{}  {} if (x>filas) or (x<1) or (y>filas) or (y<1) then begin
+{}  {} {} vero:=false; writeln('La posicion de la estrella en el .txt (Ubicado en la fila: ',ContadorDeLineas,') debe de estar entre [1x1] y menor al tamaño de la matriz');
+{}  {} {} writeln('El programa finalizará, modifique el .txt');
+{}  {} end
+{}  {} else begin Mapa[x,y];='E'; end;
+{}  end;
+{---}
+
+{6+,7+}{DESTRUCTORES}
+{} {-------La 6ta parte leera la linea con la cantidad de destructores}
+{} {}
+{} {}If (ContadorDeLineas=suma)and (vero=true) then begin {Numero De Destructores}
+{} {} {}  if (x>(filas*columnas)) or (x<0) then begin
+{} {} {} {} vero:=false; writeln('La cantidad de destructores debe ser y menor al tamaño de la matriz,y mayor o igual a 0');
+{} {} {} {} writeln('El programa finalizará, modifique el .txt');
+{} {} {} end
+{} {} {} else begin NumDestructores:=x; suma:=suma+x+1; end;
+{} {} end;
+{} {---}
+{}
+{} {La septima y ultima parte evaluara la posicion de cada destructor}
+{}
+{} If (ContadorDelineas<suma) and (ContadorDeLineas>suma)and (vero=true) then begin
+{}  {} if (x>filas) or (x<1) or (y>filas) or (y<1) then begin
+{}  {} {} vero:=false; writeln('La posicion del  destructor en el .txt (Ubicado en la fila: ',ContadorDeLineas,') debe de estar entre [1x1] y menor al tamaño de la matriz');
+{}  {} {} writeln('El programa finalizará, modifique el .txt');
+{}  {} end
+{}  {} else begin Mapa[x,y];='D'; end;
+{}  end;
+{---}
+
+end;
+{----------------------------------------------------------------------}
+Procedure LeerFichero(var ContadorDeLineas:integer);
+Var
+ Fichero:text;
+ A,linea:string;
+BEGIN
+{}   assign(fichero,'C:\Users\Victor\Documents\UCAB\Program Lía\est.txt');
+{}   reset(fichero);
+{}   while not eof(fichero) do begin     {Mientras no termine el archivo leer cada linea}
+{}    {}readln(fichero,linea);
+{}    {}A:=linea; Escribir(A,ContadorDeLineas); {La linea se guarda en una variable A, y se llama al proceso Escribir}
+{}    end;
+{}     close(fichero);readkey;
+END;
+{================================================================================}
+Begin
+ContadorDelineas:=0;  {Contador con el que se guardara la cantidad de lineas del <<.txt>>, servira para tener un control a la hora de hacer la matriz}
+LeerFichero(ContadorDeLineas); {Todos estos procesos seran SOLO y Exlusivamente para cargar el .txt en el juego, y verificar el mismo}
+END.

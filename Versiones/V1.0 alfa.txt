@@ -1,0 +1,43 @@
+{.------Funcional completo la lectura de archivos y solicatar las lineas de cada uno}
+Program ProyectoHalconMilenario;
+uses
+ crt;
+ var
+ ContadorDeLineas:integer;
+{-----------------------------------------------}
+Procedure escribir(A:string;var ContadorDeLineas:integer);
+var
+ aux,Numero1,Numero2:string;
+ i,cont:integer;
+Begin
+  ContadorDeLineas:=ContadorDeLineas+1;
+  A:=A+' '; aux:=''; cont:=0;
+  For i:=1 to Length(A) do begin
+  {} if (a[i]<>' ')then aux:=aux+a[i]
+  {} else begin
+  {} {}cont:=cont+1;
+  {} {}if (cont=1) then begin numero1:=aux; aux:=''; end;
+  {} {}if (cont=2)then  begin numero2:=aux; aux:=''; end;
+  {} end;
+  end;
+ writeln('Linea: ',A); writeln(numero1,'|',numero2);
+end;
+{----------------------------------------------------------------------}
+Procedure LeerFichero(var ContadorDeLineas:integer);
+Var
+ Fichero:text;
+ A,linea:string;
+BEGIN
+{}   assign(fichero,'C:\Users\Victor\Documents\UCAB\Program Lía\est.txt');
+{}   reset(fichero);
+{}   while not eof(fichero) do begin
+{}    {}readln(fichero,linea);
+{}    {}A:=linea; Escribir(A,ContadorDeLineas);
+{}    end;
+{}     close(fichero);readkey;
+END;
+{======================================================================}
+Begin
+ContadorDelineas:=0;
+LeerFichero(ContadorDeLineas);
+END

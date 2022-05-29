@@ -1,0 +1,87 @@
+{Funcional hasta despues de la mitad del procedure escribir}
+Program ProyectoHalconMilenario;
+uses
+ crt;
+ type
+  arreglo=array[1..30,1..30]of string;
+ var
+ Mapa:arreglo;
+ ContadorDeLineas:integer;
+{-----------------------------------------------}
+Procedure PosicionEstrellas(NumeroEstrellas:integer;);
+var
+ Fichero:Text;
+ A,Linea:string;
+Begin
+end;
+{-----------------------------------------------}
+Procedure GenerarMatriz (var Mapa:arreglo; Filas,Columnas:integer);
+var
+ i,j:integer;
+BEGIN
+ For i:=1 to Filas do begin
+ {} For j:=1 to Columnas do begin
+ {} {} Mapa[i,j]:='';
+ {} end;
+ end;
+END;
+{-----------------------------------------------}
+Procedure escribir(A:string;var ContadorDeLineas:integer);
+var
+ aux,Numero1,Numero2:string;
+ i,cont,error,x,y,suma,filas,columnas,NumEstrellas:integer;
+ vero:boolean;
+Begin
+  ContadorDeLineas:=ContadorDeLineas+1;
+  A:=A+' '; aux:=''; cont:=0;
+  For i:=1 to Length(A) do begin
+  {} if (a[i]<>' ')then aux:=aux+a[i]
+  {} else begin
+  {} {}cont:=cont+1;
+  {} {}if (cont=1) then begin numero1:=aux; aux:=''; end;
+  {} {}if (cont=2)then  begin numero2:=aux; aux:=''; end;
+  {} end;
+  end;
+
+ val(Numero1,x,error);   val(Numero2,y,error); vero:=true;
+
+ If (ContadorDeLineas=1) then begin  {Tamaño de la matriz}                                           {-------------------------}
+  {} Filas:=x; Columnas:=y;                                                                          {-     Generar Matriz    -}
+  {} if (x>30) or (x<1) or (y>30) or (y<1) then begin                                                {-      Logicamente      -}
+  {} {} vero:=false; writeln('La matriz debe ser mayor a [1x1] y menor o igual a [30x30]');          {- correcto mas no probada}
+  {} {} writeln('El programa finalizará, modifique el .txt');                                        {-                       -}
+  {} end;                                                                                            {-------------------------}
+  {} else GenerarMatriz(Mapa,Filas,Columnas);
+  end;
+ If (contadorDeLineas=2) and (vero=true) then begin {Posicion de la nave}                            {-----------------------------------}
+  {} NaveX:=x; NaveY:=y; Mapa[NaveX,NaveY]:='H'                                                      {Logicamente correcto mas sin probar}
+  end;
+ If (ContadorDeLineas=3) and (vero=true) then begin {Posicion del planeta}                           {Logicamente correcto mas sin probar}
+  {}Tx:=x; Ty:=y; Mapa[Tx,Ty];='T';
+  end;
+ If (ContadorDeLineas=4) and (vero=true) then begin {Numero de estrellas}    {<<<-----------------}  {Por donde me quedé: }
+  {} NumEstrellas:=x; suma:=4+x; PosicionEstrellas(NumEstrellas)                                     {Hacer una relectura del archivo guardando las}
+  end;                                                                                               {posiciones}
+ If (ContadorDeLineas=suma)and (vero=true) then
+ {contador de posiciones de estrellas}
+ If (ContadorDelineas) and (vero=true) then
+end;
+{----------------------------------------------------------------------}
+Procedure LeerFichero(var ContadorDeLineas:integer);
+Var
+ Fichero:text;
+ A,linea:string;
+BEGIN
+{}   assign(fichero,'C:\Users\Victor\Documents\UCAB\Program Lía\est.txt');
+{}   reset(fichero);
+{}   while not eof(fichero) do begin
+{}    {}readln(fichero,linea);
+{}    {}A:=linea; Escribir(A,ContadorDeLineas);
+{}    end;
+{}     close(fichero);readkey;
+END;
+{======================================================================}
+Begin
+ContadorDelineas:=0;
+LeerFichero(ContadorDeLineas);
+END.
