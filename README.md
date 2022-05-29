@@ -35,7 +35,7 @@
 (Opcional) En el caso de tener algun problema al correr el proyecto, en la carpeta de "Versiones" copiar el `.txt` llamado ¨V8 Final compilable¨ y vaciarlo en DevPascal, recompilar, y ejecutar el nuevo ejecutable.
 
 ## During and after running the game
-El proceso de verificaión no permitirá jugar hasta que el contenido contenga la lógica necesaria para jugar.
+El proceso de verificación no permitirá jugar hasta que el contenido contenga la lógica necesaria para jugar.
 
 Esto no significa que revisará que el archivo `est,txt` tenga solución, (o que contenga caracteres especiales): sólo verificara que los datos dados estén dentro de la matriz, para evadir errores.
 
